@@ -1,0 +1,45 @@
+---
+// Component Imports
+import Naming from '../components/Naming.svelte';
+
+// Full Astro Component Syntax:
+// https://docs.astro.build/core-concepts/astro-components/
+---
+
+<html lang="en" data-theme="cupcake">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content="{Astro.generator}" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  </head>
+  <body>
+    <main>
+      <h1 class="text-center text-2xl font-bold mt-10">
+        Cannon AFB Naming Convention
+      </h1>
+      <Naming client:load />
+      <!-- Put this part before </body> tag -->
+      <div class="mx-auto w-max mt-10">
+        <label for="my-modal-4" class="btn btn-primary modal-button shadow-lg"
+          >View Naming Convention</label
+        >
+      </div>
+      <input type="checkbox" id="my-modal-4" class="modal-toggle" />
+      <label for="my-modal-4" class="modal cursor-pointer">
+        <label class="modal-box relative" for="">
+          <h3 class="text-lg font-bold">Cannon AFB Naming Convention</h3>
+          <p class="py-4">The name is split up into 4 parts:</p>
+          <b>Identifier:</b>
+          <p>For Cannon this is CZQZ</p>
+          <b>Computer Type:</b>
+          <p>W, L, or T for workstation, laptop, or tablet</p>
+          <b>Squadron:</b>
+          <p>An abbreviated version of the squadron the computer belongs in</p>
+          <b>Serial:</b>
+          <p>The remaining spaces are filled with the end of the serial</p>
+        </label>
+      </label>
+    </main>
+  </body>
+</html>
