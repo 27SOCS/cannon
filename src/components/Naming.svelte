@@ -2,7 +2,7 @@
   const computerTypes = [
     { id: "W", type: "Workstation" },
     { id: "L", type: "Laptop" },
-    { id: "T", type: "Tablet" }
+    { id: "T", type: "Tablet" },
   ];
   const squadrons = [
     { id: "SOG", name: "27 SOG" },
@@ -37,7 +37,7 @@
     { id: "FSS", name: "27 SOFSS" },
     { id: "STS", name: "26 STS" },
     { id: "43IS", name: "43 IS" },
-    { id: "TRS", name: "373 TRS" }
+    { id: "TRS", name: "373 TRS" },
   ];
 
   let selectedType;
@@ -60,9 +60,9 @@
         </div>
       </label>
 
-      <select bind:value="{selectedType}" class="select select-bordered">
+      <select bind:value={selectedType} class="select select-bordered">
         {#each computerTypes as type}
-        <option value="{type.id}">{type.type}</option>
+          <option value={type.id}>{type.type}</option>
         {/each}
       </select>
     </div>
@@ -77,9 +77,9 @@
         </div>
       </label>
 
-      <select bind:value="{selectedSQ}" class="select select-bordered">
+      <select bind:value={selectedSQ} class="select select-bordered">
         {#each squadrons as sq}
-        <option value="{sq.id}">{sq.name}</option>
+          <option value={sq.id}>{sq.name}</option>
         {/each}
       </select>
     </div>
@@ -94,13 +94,12 @@
         </div>
       </label>
       <input
-        bind:value="{serial}"
+        bind:value={serial}
         type="text"
         placeholder="Type here"
         class="input input-bordered w-full max-w-xs"
       />
     </div>
-
   </div>
 </div>
 
