@@ -40,12 +40,14 @@
     { id: "TRS", name: "373 TRS" },
   ];
 
+  let manufacturer = 1;
   let selectedType;
   let selectedSQ;
   let serial = "";
   $: name = `CZQZ${selectedType || ""}-${selectedSQ}`;
-  $: sdc = serial.substring(serial.length - (15 - name.length), serial.length);
-  $: finalName = `${name}${sdc}`;
+  $: start = serial.substring(serial.length - (15 - name.length), serial.length);
+  $: end = serial.substring(0, Math.min(serial.length, 15 - name.length));
+  $: finalName = `${name}${manufacturer === 1 ? start : end}`;
 </script>
 
 <div class="mt-6 card w-96 bg-base-200 shadow-xl mx-auto">
@@ -60,9 +62,9 @@
         </div>
       </label>
 
-      <select bind:value={selectedType} class="select select-bordered">
+      <select bind:value="{selectedType}" class="select select-bordered">
         {#each computerTypes as type}
-          <option value={type.id}>{type.type}</option>
+        <option value="{type.id}">{type.type}</option>
         {/each}
       </select>
     </div>
@@ -77,9 +79,9 @@
         </div>
       </label>
 
-      <select bind:value={selectedSQ} class="select select-bordered">
+      <select bind:value="{selectedSQ}" class="select select-bordered">
         {#each squadrons as sq}
-          <option value={sq.id}>{sq.name}</option>
+        <option value="{sq.id}">{sq.name}</option>
         {/each}
       </select>
     </div>
@@ -94,11 +96,42 @@
         </div>
       </label>
       <input
-        bind:value={serial}
+        bind:value="{serial}"
         type="text"
         placeholder="Type here"
         class="input input-bordered w-full max-w-xs"
       />
+    </div>
+
+    <div class="form-control mt-6">
+      <span class="label-text">Manufacturer</span>
+      <label class="label cursor-pointer">
+        <div class="tooltip tooltip-primary tooltip-right" data-tip="Dell">
+          <span class="label-text mt">Dell</span>
+        </div>
+        <input
+          type="radio"
+          name="radio-6"
+          class="radio"
+          bind:group="{manufacturer}"
+          value="{2}"
+          checked
+        />
+      </label>
+    </div>
+    <div class="form-control">
+      <label class="label cursor-pointer">
+        <div class="tooltip tooltip-primary tooltip-right" data-tip="Other">
+          <span class="label-text">Other</span>
+        </div>
+        <input
+          type="radio"
+          name="radio-6"
+          class="radio"
+          bind:group="{manufacturer}"
+          value="{1}"
+        />
+      </label>
     </div>
   </div>
 </div>
