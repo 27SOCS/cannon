@@ -40,14 +40,22 @@
     { id: "TRS", name: "373 TRS" },
   ];
 
-  let manufacturer = 1;
+  let manufacturer = "other";
   let selectedType;
   let selectedSQ;
   let serial = "";
   $: name = `CZQZ${selectedType || ""}-${selectedSQ}`;
-  $: start = serial.substring(serial.length - (15 - name.length), serial.length);
-  $: end = serial.substring(0, Math.min(serial.length, 15 - name.length));
-  $: finalName = `${name}${manufacturer === 1 ? start : end}`;
+
+  // Dell uses start
+  $: start = serial.substring(0, Math.min(serial.length, 15 - name.length));
+
+  // Default end of serial
+  $: end = serial.substring(serial.length - (15 - name.length), serial.length);
+
+  // Surface Pro cuts off first three
+  $: surface = serial.substring(3, Math.min(serial.length, 18 - name.length));
+
+  $: finalName = `${name}${manufacturer === "dell" ? start : manufacturer === "surface" ? surface : end}`;
 </script>
 
 <div class="mt-6 card w-96 bg-base-200 shadow-xl mx-auto">
@@ -58,7 +66,7 @@
           class="tooltip tooltip-primary tooltip-right"
           data-tip="What type of computer it is"
         >
-          <span class="label-text">Computer type</span>
+          <span class="label-text font-bold">Computer type</span>
         </div>
       </label>
 
@@ -75,7 +83,7 @@
           class="tooltip tooltip-primary tooltip-right"
           data-tip="Which Squadron the computer is going to"
         >
-          <span class="label-text">Squadron</span>
+          <span class="label-text font-bold">Squadron</span>
         </div>
       </label>
 
@@ -92,7 +100,7 @@
           class="tooltip tooltip-primary tooltip-right"
           data-tip="Full serial number of computer"
         >
-          <span class="label-text">Serial</span>
+          <span class="label-text font-bold">Serial</span>
         </div>
       </label>
       <input
@@ -104,7 +112,7 @@
     </div>
 
     <div class="form-control mt-6">
-      <span class="label-text">Manufacturer</span>
+      <span class="label-text font-bold">Manufacturer/Model</span>
       <label class="label cursor-pointer">
         <div class="tooltip tooltip-primary tooltip-right" data-tip="Dell">
           <span class="label-text mt">Dell</span>
@@ -114,8 +122,22 @@
           name="radio-6"
           class="radio"
           bind:group="{manufacturer}"
-          value="{2}"
+          value="dell"
           checked
+        />
+      </label>
+    </div>
+    <div class="form-control">
+      <label class="label cursor-pointer">
+        <div class="tooltip tooltip-primary tooltip-right" data-tip="Surface Pro">
+          <span class="label-text">Microsoft Surface Pro</span>
+        </div>
+        <input
+          type="radio"
+          name="radio-6"
+          class="radio"
+          bind:group="{manufacturer}"
+          value="surface"
         />
       </label>
     </div>
@@ -129,7 +151,7 @@
           name="radio-6"
           class="radio"
           bind:group="{manufacturer}"
-          value="{1}"
+          value="other"
         />
       </label>
     </div>
